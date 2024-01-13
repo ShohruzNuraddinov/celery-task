@@ -14,7 +14,7 @@ def downloadImage(img_key):
 
 @shared_task
 def image_save():
-    # 1-oddiy
+    # 1
     # for _ in range(100):
     #     random_key = get_random_string(12)
     #     downloadImage(random_key)
@@ -45,3 +45,7 @@ def image_save():
         thread.join()
 
     ImageFile.objects.bulk_create(images_list)
+
+    # 1: 2.4 min
+    # 2-bulk: 2.2 min
+    # 3-thread: 5.4s
