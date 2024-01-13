@@ -19,13 +19,14 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from app.views import ImageListApiView, RandomImageDownload
+from app.views import ImageListApiView, RandomImageDownload, ImageRetrieveAPIView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/images/', ImageListApiView.as_view()),
     path('api/images/random/', RandomImageDownload.as_view()),
+    path('api/images/picsum/', ImageRetrieveAPIView.as_view()),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
