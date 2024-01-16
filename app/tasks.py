@@ -1,5 +1,6 @@
 import threading
 import urllib.request
+from PIL import Image
 
 from django.utils.crypto import get_random_string
 from celery import shared_task
@@ -49,3 +50,29 @@ def image_save():
     # 1: 2.4 min
     # 2-bulk: 2.2 min
     # 3-thread: 5.4s
+
+
+@shared_task
+def image_resize(wigth, heigh):
+    images = ImageFile.objects.all()
+
+    for image in images:
+        img = Image.open(image.image)
+
+        width, height = img.size
+
+        # Setting the points for cropped image
+        left = 6
+        top = height / 4
+        right = 174
+        bottom = 3 * height / 4
+
+        # Cropped image of above dimension
+        # (It will not change original image)
+        im1 = img.crop((left, top, right, bottom))
+        newsize = (width, heigh)
+        im1 = im1.resize(newsize)
+        resized = img.resize((wigth, heigh))
+        resized.save(f'media/images/image_{image.id}.jpg')
+        # img.thumbnail((wigth, heigh))
+        # img.save(f'/media/images/image_{image.id}.jpg')

@@ -5,7 +5,7 @@ from PIL import Image
 from app.models import ImageFile
 from app.serializers import ImageSerialzier
 
-from app.tasks import image_save
+from app.tasks import image_save, image_resize
 from rest_framework.response import Response
 from rest_framework import status
 
